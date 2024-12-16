@@ -228,100 +228,133 @@
         form.className = 'feedback-form';
         form.innerHTML = `
             <h3>Review Analysis Feedback</h3>
-            
-            <div class="feedback-options ">
+
+            <div class="feedback-options">
                 <p>What are your thoughts on this review?</p>
                 <label>
-                    <input type="radio" name="feedback-reason" value="wrong-classification">
+                    <input type="radio" name="feedback-reason" value="wrong classification">
                     Wrong classification
                 </label>
                 <label>
-                    <input type="radio" name="feedback-reason" value="confidence-score">
+                    <input type="radio" name="feedback-reason" value="Incorrect confidence score">
                     Incorrect confidence score
                 </label>
                 <label>
-                    <input type="radio" name="feedback-reason" value="review-content">
+                    <input type="radio" name="feedback-reason" value="Review seems fake to me!">
                     Review seems fake to me!
                 </label>
                 <label>
-                    <input type="radio" name="feedback-reason" value="other">
+                    <input type="radio" name="feedback-reason" value="Review seems Real to me!">
                     Review seems Real to me!
                 </label>
             </div>
 
             <div class="feedback-text">
                 <p>Additional Comments:</p>
-                <textarea placeholder="Please provide more details..." rows="4"></textarea>
+                <textarea id="feedback-comments" placeholder="Please provide more details..." rows="4"></textarea>
             </div>
 
             <div class="feedback-buttons">
-                <button class="submit-btn" onSubmit="submitFeedback()">Submit</button>
-                <button class="cancel-btn">Cancel</button>
+                <button class="submit-btn" >Submit</button>
+                <button class="cancel-btn" onclick="resetForm()">Cancel</button>
             </div>
-        `;
+
+        `; 
         overlay.appendChild(form);
         document.body.appendChild(overlay);
-
+        const reviewID = 24523;
         const submitBtn = form.querySelector('.submit-btn');
         const cancelBtn = form.querySelector('.cancel-btn');
 
-        submitBtn.addEventListener('click', () => {
-            const reason = form.querySelector('input[name="feedback-reason"]:checked')?.value;
-            const comments = form.querySelector('textarea').value;
-            
-            if (!reason) {
+        submitBtn.addEventListener('click', async () => {
+            const selectedFeedback = form.querySelector('input[name="feedback-reason"]:checked')?.value;
+            const msg = form.querySelector('textarea').value;
+            const originalReview = "real"
+            console.log(selectedFeedback);
+            console.log(msg);
+            console.log(originalReview);
+            console.log(reviewID);  
+            if (!selectedFeedback) {
                 alert('Please select a reason for your feedback');
                 return;
             }
 
             // Optional: Send feedback to backend
             try {
-                fetch('https://your-feedback-endpoint.com/submit', {
+                await fetch('https://database-4pzy.onrender.com/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        reason: reason,
-                        comments: comments
+                        "ID": reviewID,
+                        "FEEDBACK": selectedFeedback,
+                        "MESSAGE": msg,
+                        "REVIEW": originalReview
                     })
                 });
             } catch (error) {
                 console.error('Failed to submit feedback:', error);
             }
-
+            
             overlay.remove();
         });
 
         cancelBtn.addEventListener('click', () => overlay.remove());
     }
-    async  function submitFeeback(){
-        FEED_URL = `https://database-4pzy.onrender.com/`
-        try{
-            const response = await fetch(FEED_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    "ID": reviewID,
-                    "FEEDBACK": feedback,
-                    "MESSAGE": msg,
-                    "REVIEW": reviewChange
-                  }),
-            });
-            if (!response.ok) {
-                throw new Error('errorr');
-            }
-            const data = await response.json();
-            console.log('Data received:', data);
-            return data; 
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-            throw error;
-        }
-        }
-    
+//   // Function to gather input values and call API
+// async function submitFeedback() {
+//     const FEED_URL = `https://database-4pzy.onrender.com/`;
+
+//     // Gather user inputs
+//     const selectedFeedback = document.querySelector('input[name="feedback-reason"]:checked')?.value;
+//     const feedbackComments = document.getElementById('feedback-comments').value;
+
+//     if (!selectedFeedback) {
+//         alert("Please select a feedback reason.");
+//         return;
+//     }
+
+//     const reviewID = "23452"; // Replace with actual review ID (e.g., dynamic value)
+//     const originalReview = "The review text goes here."; // Replace dynamically if required
+//     const msg = feedbackComments || "No additional comments provided.";
+//     let 
+
+//     try {
+//         // Send data to the API
+//         const response = await fetch(FEED_URL, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify({
+//                 "ID": reviewID,
+//                 "FEEDBACK": selectedFeedback,
+//                 "MESSAGE": msg,
+//                 "REVIEW": originalReview
+//             }),
+//         });
+
+//         if (!response.ok) {
+//             throw new Error(`Error: ${response.statusText}`);
+//         }
+
+//         const data = await response.json();
+//         console.log('Data received:', data);
+//         alert("Feedback submitted successfully!");
+
+//     } catch (error) {
+//         console.error('There was a problem with the fetch operation:', error);
+//         alert("Failed to submit feedback. Please try again.");
+//     }
+// }
+
+// // Function to reset the form inputs
+// function resetForm() {
+//     document.querySelectorAll('input[name="feedback-reason"]').forEach(input => input.checked = false);
+//     document.getElementById('feedback-comments').value = '';
+// }
+
     async function processReview(reviewElement, reviewEl, title, pic) {
         if (processedReviews.has(reviewElement)) return;
         
