@@ -220,7 +220,7 @@
         closeBtn.addEventListener('click', () => overlay.remove());
     }
 
-    function createFeedbackForm(review) {
+    function createFeedbackForm(review, original) {
         const overlay = document.createElement('div');
         overlay.className = 'feedback-overlay';
         
@@ -262,46 +262,50 @@
         `; 
         overlay.appendChild(form);
         document.body.appendChild(overlay);
-        let reviewID = review;
+        let reviewID = review.getAttribute('data-review-id');
         const submitBtn = form.querySelector('.submit-btn');
         const cancelBtn = form.querySelector('.cancel-btn');
 
         submitBtn.addEventListener('click', async () => {
             const selectedFeedback = form.querySelector('input[name="feedback-reason"]:checked')?.value;
             const msg = form.querySelector('textarea').value;
-            const originalReview = "real"
-            console.log(selectedFeedback);
-            console.log(msg);
-            console.log(originalReview);
-            console.log(reviewID);  
+            const originalReview = original;
+            
             if (!selectedFeedback) {
                 alert('Please select a reason for your feedback');
                 return;
             }
-
-            // Optional: Send feedback to backend
+        
             try {
-                await fetch('https://database-4pzy.onrender.com/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        "ID": reviewID,
-                        "FEEDBACK": selectedFeedback,
-                        "MESSAGE": msg,
-                        "REVIEW": originalReview
-                    })
+                await new Promise((resolve, reject) => {
+                    chrome.runtime.sendMessage({
+                        type: 'fetch',
+                        url: 'https://database-4pzy.onrender.com/submit_feedback',
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: {
+                            "ID": reviewID,
+                            "FEEDBACK": selectedFeedback,
+                            "MESSAGE": msg,
+                            "REVIEW": originalReview
+                        }
+                    }, (response) => {
+                        if (response.success) {
+                            resolve(response);
+                        } else {
+                            reject(new Error(response.error));
+                        }
+                    });
                 });
+                
+                overlay.remove();
             } catch (error) {
                 console.error('Failed to submit feedback:', error);
+                alert('Failed to submit feedback. Please try again.');
             }
-            
-            overlay.remove();
-        });
-
-        cancelBtn.addEventListener('click', () => overlay.remove());
-    }
+        });}
 //   // Function to gather input values and call API
 // async function submitFeedback() {
 //     const FEED_URL = `https://database-4pzy.onrender.com/`;
@@ -396,7 +400,7 @@
                 right: 10px;
                 z-index: 1000;
             `;
-            feedbackBtn.addEventListener('click', createFeedbackForm(reviewEl));
+            feedbackBtn.addEventListener('click', () => createFeedbackForm(reviewEl, result.text));
             
             reviewEl.style.position = 'relative';
             reviewEl.appendChild(flag);
