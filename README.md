@@ -39,7 +39,7 @@ The **Google Fake Review Analyser** is a powerful Chrome extension designed to h
 - **FastAPI**: ⚡ Backend framework for serving the analysis.
 
 ### Machine Learning
-- **NLP Models**: Utilized for grammar checking, sentiment analysis, cosinne-similarity and TF-IDF.
+- **NLP Models**: Utilized for grammar checking, sentiment analysis, cosine-similarity and TF-IDF.
 - **AI MODEL** : Used LLAMA 3.2 90B LLM to check content analysis 
 
 ### Infrastructure
