@@ -1,0 +1,81 @@
+2024-12-17 05:14:54,049 - INFO - Processing URL: https://www.google.com/maps/contrib/103452974889895734911/reviews
+2024-12-17 05:14:54,050 - ERROR - Overall extraction error: It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+2024-12-17 05:14:54,053 - ERROR - Traceback (most recent call last):
+  File "D:\HARSHIT\PROJECT\AUTHENTEX\testing\ml_test.py", line 55, in extract_reviews
+    with sync_playwright() as p:
+         ^^^^^^^^^^^^^^^^^
+  File "C:\Users\harsh\AppData\Roaming\Python\Python312\site-packages\playwright\sync_api\_context_manager.py", line 47, in __enter__
+    raise Error(
+playwright._impl._errors.Error: It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+
+2024-12-17 05:14:54,056 - INFO - Extracted 0 reviews
+2024-12-17 05:15:45,953 - INFO - Processing URL: https://www.google.com/maps/contrib/103452974889895734911/reviews
+2024-12-17 05:15:45,953 - ERROR - Overall extraction error: It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+2024-12-17 05:15:45,955 - ERROR - Traceback (most recent call last):
+  File "D:\HARSHIT\PROJECT\AUTHENTEX\testing\ml_test.py", line 55, in extract_reviews
+    with sync_playwright() as p:
+         ^^^^^^^^^^^^^^^^^
+  File "C:\Users\harsh\AppData\Roaming\Python\Python312\site-packages\playwright\sync_api\_context_manager.py", line 47, in __enter__
+    raise Error(
+playwright._impl._errors.Error: It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+
+2024-12-17 05:15:45,955 - INFO - Extracted 0 reviews
+2024-12-17 05:16:05,783 - INFO - Processing URL: https://www.google.com/maps/contrib/103452974889895734911/reviews
+2024-12-17 05:16:05,784 - ERROR - Overall extraction error: It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+2024-12-17 05:16:05,786 - ERROR - Traceback (most recent call last):
+  File "D:\HARSHIT\PROJECT\AUTHENTEX\testing\ml_test.py", line 55, in extract_reviews
+    with sync_playwright() as p:
+         ^^^^^^^^^^^^^^^^^
+  File "C:\Users\harsh\AppData\Roaming\Python\Python312\site-packages\playwright\sync_api\_context_manager.py", line 47, in __enter__
+    raise Error(
+playwright._impl._errors.Error: It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+
+2024-12-17 05:16:05,788 - INFO - Extracted 0 reviews
+2024-12-17 05:17:33,328 - INFO - Processing URL: https://www.google.com/maps/contrib/103452974889895734911/reviews
+2024-12-17 05:17:33,329 - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-5' coro=<Connection.run() done, defined at C:\Users\harsh\AppData\Roaming\Python\Python312\site-packages\playwright\_impl\_connection.py:272> exception=NotImplementedError()>
+Traceback (most recent call last):
+  File "C:\Users\harsh\AppData\Roaming\Python\Python312\site-packages\playwright\_impl\_connection.py", line 279, in run
+    await self._transport.connect()
+  File "C:\Users\harsh\AppData\Roaming\Python\Python312\site-packages\playwright\_impl\_transport.py", line 133, in connect
+    raise exc
+  File "C:\Users\harsh\AppData\Roaming\Python\Python312\site-packages\playwright\_impl\_transport.py", line 120, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\asyncio\base_events.py", line 1743, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\asyncio\base_events.py", line 524, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+2024-12-17 05:17:33,331 - ERROR - Overall extraction error: 
+2024-12-17 05:17:33,332 - ERROR - Traceback (most recent call last):
+  File "D:\HARSHIT\PROJECT\AUTHENTEX\testing\ml_test.py", line 55, in extract_reviews
+    async with async_playwright() as p:
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\harsh\AppData\Roaming\Python\Python312\site-packages\playwright\async_api\_context_manager.py", line 46, in __aenter__
+    playwright = AsyncPlaywright(next(iter(done)).result())
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\harsh\AppData\Roaming\Python\Python312\site-packages\playwright\_impl\_transport.py", line 120, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\asyncio\base_events.py", line 1743, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\asyncio\base_events.py", line 524, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+
+2024-12-17 05:17:33,332 - INFO - Extracted 0 reviews
