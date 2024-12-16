@@ -241,7 +241,7 @@
                 </label>
                 <label>
                     <input type="radio" name="feedback-reason" value="review-content">
-                    Review content suggests otherwise
+                    Review seems fake to me!
                 </label>
                 <label>
                     <input type="radio" name="feedback-reason" value="other">
@@ -255,11 +255,10 @@
             </div>
 
             <div class="feedback-buttons">
-                <button class="submit-btn">Submit</button>
+                <button class="submit-btn" onSubmit="submitFeedback()">Submit</button>
                 <button class="cancel-btn">Cancel</button>
             </div>
         `;
-
         overlay.appendChild(form);
         document.body.appendChild(overlay);
 
@@ -296,7 +295,33 @@
 
         cancelBtn.addEventListener('click', () => overlay.remove());
     }
-
+    async  function submitFeeback(){
+        FEED_URL = `https://database-4pzy.onrender.com/`
+        try{
+            const response = await fetch(FEED_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "ID": reviewID,
+                    "FEEDBACK": feedback,
+                    "MESSAGE": msg,
+                    "REVIEW": reviewChange
+                  }),
+            });
+            if (!response.ok) {
+                throw new Error('errorr');
+            }
+            const data = await response.json();
+            console.log('Data received:', data);
+            return data; 
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+            throw error;
+        }
+        }
+    
     async function processReview(reviewElement, reviewEl, title, pic) {
         if (processedReviews.has(reviewElement)) return;
         
