@@ -1,0 +1,613 @@
+/* Styling for review flags */
+.review-flag {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    animation: flagSlideIn 0.3s ease-out;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.review-flag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Color schemes for different classifications */
+.review-flag.red {
+    background: linear-gradient(135deg, #ff4d4d, #ff6b6b);
+    color: white;
+}
+
+.review-flag.yellow {
+    background: linear-gradient(135deg, #ffd700, #ffeb3b);
+    color: #333;
+}
+
+.review-flag.green {
+    background: linear-gradient(135deg, #4caf50, #8bc34a);
+    color: white;
+}
+
+/* Tooltip styling */
+.review-tooltip {
+    position: absolute;
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    z-index: 1000;
+    max-width: 300px;
+    display: none;
+    animation: tooltipFadeIn 0.3s ease-out;
+}
+
+.tooltip-header {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.tooltip-content {
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Feedback button styling */
+.feedback-button {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    background: #1a73e8;
+    color: white;
+    transition: all 0.2s;
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    min-width: 80px;  
+    text-align: center;
+}
+
+.feedback-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background: #1557b0;
+}
+
+.flag-container {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    background: white;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.review-flag, .feedback-button {
+    min-width: 80px;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Container styling */
+.jftiEf {
+    position: relative !important;
+    padding-top: 40px !important;  
+}
+
+/* Animation keyframes */
+@keyframes flagSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Feedback form styling */
+.feedback-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 400px;
+    /* animation: scaleIn 0.3s ease-out; */
+    z-index: 9999;
+}
+
+.feedback-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    resize: vertical;
+}
+
+/* Loading spinner */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #1a73e8;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Stats container */
+.stats-container {
+    margin-top: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    margin: 4px 0;
+    background: white;
+    border-radius: 6px;
+    transition: transform 0.2s;
+}
+
+.stat-item:hover {
+    transform: translateX(4px);
+}
+
+/* Overlay Base */
+.feedback-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease;
+}
+
+/* Feedback Form Container */
+.feedback-form {
+    background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 450px;
+    animation: slideIn 0.4s ease;
+    box-sizing: border-box;
+}
+
+/* Form Header */
+.feedback-form h3 {
+    color: #1a73e8;
+    font-size: 24px;
+    margin: 0 0 25px 0;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Options Section */
+.feedback-options {
+    margin: 25px 0;
+}
+
+.feedback-options p {
+    color: #333;
+    font-size: 16px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+/* Radio Options */
+.feedback-options label {
+    display: flex;
+    align-items: center;
+    margin: 12px 0;
+    padding: 12px 15px;
+    border-radius: 12px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.feedback-options label:hover {
+    transform: translateX(5px);
+    border-color: #1a73e8;
+    background: #f8f9fa;
+}
+
+.feedback-options input[type="radio"] {
+    margin-right: 12px;
+    width: 18px;
+    height: 18px;
+    accent-color: #1a73e8;
+}
+
+/* Text Area Section */
+.feedback-text {
+    margin-top: 20px;
+}
+
+.feedback-text p {
+    color: #333;
+    font-size: 16px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.feedback-text textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 15px;
+    border: 2px solid #e8eaed;
+    border-radius: 12px;
+    margin: 10px 0;
+    font-size: 15px;
+    line-height: 1.5;
+    resize: vertical;
+    min-height: 120px;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.feedback-text textarea:focus {
+    border-color: #1a73e8;
+    outline: none;
+    box-shadow: 0 2px 8px rgba(26, 115, 232, 0.1);
+}
+
+/* Button Container */
+.feedback-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.submit-btn, .cancel-btn {
+    flex: 1;
+    height: 44px;
+    line-height: 44px;
+    padding: 0;
+    margin: 0;  
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-sizing: border-box;  
+}
+
+/* Submit button */
+.submit-btn {
+    background: linear-gradient(45deg, #1a73e8, #4285f4);
+    color: white;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+}
+
+/* Cancel button */
+.cancel-btn {
+    background: #f1f2f6;
+    color: #333;
+}
+
+.cancel-btn:hover {
+    transform: translateY(-2px);
+    background: #e4e6eb;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+    }
+    to { 
+        opacity: 1; 
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 480px) {
+    .feedback-form {
+        padding: 20px;
+        margin: 15px;
+    }
+
+    .feedback-buttons {
+        flex-direction: column;
+    }
+
+    .feedback-options label {
+        padding: 10px;
+    }
+}
+
+/* Input Focus States */
+.feedback-options input[type="radio"]:focus + span {
+    outline: 2px solid #1a73e8;
+    outline-offset: 2px;
+}
+
+/* Disabled States */
+.submit-btn:disabled,
+.cancel-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Score card styles */
+.score-card {
+    background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 450px;
+    animation: slideIn 0.4s ease;
+}
+.score-card h3 {
+    margin: 0 0 20px 0;
+    color: #333;
+    text-align: center;
+}
+
+.score-item {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.score-item:hover {
+    transform: translateX(5px);
+}
+
+.score-label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.progress-bar-container {
+    background: #f0f0f0;
+    border-radius: 12px;
+    height: 24px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(45deg, #1a73e8, #4285f4);
+    border-radius: 12px;
+    transition: width 0.6s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.progress-bar span {
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.final-score {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 2px solid #e8eaed;
+}
+
+.final-score .progress-bar {
+    background: linear-gradient(45deg, #00c853, #69f0ae);
+}
+
+.close-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(45deg, #1a73e8, #4285f4);
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3); 
+}
+
+.score-item .progress-bar-container {
+    margin-top: 8px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    height: 20px;
+    overflow: hidden;
+}
+
+.score-item .progress-bar {
+    height: 100%;
+    background: linear-gradient(45deg, #1a73e8, #4285f4);
+    transition: width 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.final-score .progress-bar {
+    background: linear-gradient(45deg, #00c853, #69f0ae);
+}
+
+.feedback-overlay {
+    z-index: 999999;  /* Very high z-index to ensure it's on top */
+}
+
+.score-card,
+.feedback-form {
+    z-index: 1000000;  
+}
+
+/* Enhanced Button Styles */
+.close-btn,
+.submit-btn,
+.cancel-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s;
+    height: 44px;
+}
+
+.submit-btn, .cancel-btn {
+    flex: 1;
+    height: 44px;
+    line-height: 44px;
+    padding: 0;
+    text-align: center;
+}
+
+.close-btn,
+.submit-btn {
+    background: linear-gradient(45deg, #1a73e8, #4285f4);
+    color: white;
+    width: 100%;
+}
+
+.close-btn:hover,
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+}
+
+.cancel-btn {
+    background: #f1f2f6;
+    color: #333;
+    margin-left: 10px;
+}
+
+.cancel-btn:hover {
+    background: #e4e6eb;
+}
+
+.submit-btn, .cancel-btn {
+    flex: 1;
+    height: 44px;
+    line-height: 44px;
+    padding: 0 24px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.isimage{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+svg{
+    margin-right: 3px;
+    width: 24px;
+    height: 24px;
+}

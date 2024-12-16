@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Review Analyzer</title>
+    
+    <style>
+        body {
+            width: 350px;
+            padding: 15px;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #f8f9fa;
+            margin: 0;
+        }
+
+        .container {
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+            border-radius: 20px;
+            padding: 15px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .header h2 {
+            color: #1a73e8;
+            margin: 0;
+            font-size: 26px;
+            font-weight: 600;
+            background: linear-gradient(45deg, #1a73e8, #4285f4);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: #666;
+            margin: 12px 0 0;
+            font-size: 14px;
+        }
+
+        .start-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(45deg, #1a73e8, #4285f4);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(26, 115, 232, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .start-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .start-btn:hover:before {
+            left: 100%;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 115, 232, 0.3);
+        }
+
+        .start-btn:disabled {
+            background: #ccc;
+            transform: none;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            border: 3px solid #e8eaed;
+            border-top: 3px solid #1a73e8;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading p {
+            margin-top: 12px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .stats {
+            margin-top: 15px;
+            background: white;
+            border-radius: 15px;
+            padding: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .stats h3 {
+            margin: 0 0 20px 0;
+            color: #333;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            background: #f8f9fa;
+            margin: 6px 0;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .stat-item:hover {
+            transform: translateX(5px);
+            border-color: #1a73e8;
+            background: white;
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.1);
+        }
+
+        .stat-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: #1a73e8;
+            background: rgba(26, 115, 232, 0.1);
+            padding: 6px 12px;
+            border-radius: 8px;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Smart Review Analyzer</h2>
+            <p>Analyze reviews with advanced AI</p>
+        </div>
+        
+        <button id="startAnalysis" class="start-btn">
+            Start Analysis
+        </button>
+
+        <div id="loading" class="loading">
+            <div class="loading-spinner"></div>
+            <p>Analyzing reviews...</p>
+        </div>
+
+        <div id="stats" class="stats">
+            <h3>Analysis Results</h3>
+            <div id="statsContent"></div>
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>

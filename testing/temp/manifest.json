@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "Google Fake Analyzer",
+  "version": "1.0",
+  "description": "Analyzes Google reviews and highlights them in blue.",
+  "permissions": ["scripting", "activeTab"],
+  "host_permissions": ["http://*/*",
+    "https://*/*"],
+  "action": {
+    "default_popup": "./popup/popup.html",
+    "default_icon": {
+      "16": "./assets/icons/icon16.png",
+      "48": "./assets/icons/icon48.png",
+      "128": "./assets/icons/icon128.png"
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';",
+    "sandbox": "sandbox allow-scripts allow-forms allow-popups allow-modals; script-src 'self' 'unsafe-inline' 'unsafe-eval'; child-src 'self';"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/plus.png",
+        "assets/red.png"
+      ],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+    ]}],
+  "content_scripts": [
+  {
+    "matches": ["<all_urls>"],
+    "js": ["./content/content.js"]
+  }
+]
+}

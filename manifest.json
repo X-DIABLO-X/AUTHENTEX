@@ -1,0 +1,36 @@
+{
+    "manifest_version": 3,
+    "name": "AUTHENTEX",
+    "version": "1.0",
+    "description": "Advanced review analysis with user feedback",
+    "permissions": [
+        "activeTab",
+        "storage"
+    ],
+    "host_permissions": [
+        "*://*.google.com/maps/*"
+    ],
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self';",
+        "sandbox": "sandbox allow-scripts allow-forms allow-popups allow-modals; script-src 'self' 'unsafe-inline' 'unsafe-eval'; child-src 'self';"
+    },
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+        "16": "./assets/logo.png",
+        "48": "./assets/logo.png",
+        "128": "./assets/logo.png"
+    }
+    },
+    "content_scripts": [{
+        "matches": ["*://*.google.com/maps/*"],
+        "js": ["content.js"],
+        "css": ["styles.css"],
+        "run_at": "document_end",
+        "all_frames": false
+    }],
+    "web_accessible_resources": [{
+        "resources": ["*.js", "*.css"],
+        "matches": ["*://*.google.com/*"]
+    }]
+}
