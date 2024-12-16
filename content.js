@@ -220,7 +220,7 @@
         closeBtn.addEventListener('click', () => overlay.remove());
     }
 
-    function createFeedbackForm() {
+    function createFeedbackForm(review) {
         const overlay = document.createElement('div');
         overlay.className = 'feedback-overlay';
         
@@ -262,13 +262,14 @@
         `; 
         overlay.appendChild(form);
         document.body.appendChild(overlay);
-        const reviewID = 24523;
+        const reviewID = review;
         const submitBtn = form.querySelector('.submit-btn');
         const cancelBtn = form.querySelector('.cancel-btn');
 
         submitBtn.addEventListener('click', async () => {
             const selectedFeedback = form.querySelector('input[name="feedback-reason"]:checked')?.value;
             const msg = form.querySelector('textarea').value;
+            const reviewID = document.querySelector('.jftiEf .data-review-id')
             const originalReview = "real"
             console.log(selectedFeedback);
             console.log(msg);
@@ -396,7 +397,7 @@
                 right: 10px;
                 z-index: 1000;
             `;
-            feedbackBtn.addEventListener('click', createFeedbackForm);
+            feedbackBtn.addEventListener('click', createFeedbackForm(reviewEl));
             
             reviewEl.style.position = 'relative';
             reviewEl.appendChild(flag);
