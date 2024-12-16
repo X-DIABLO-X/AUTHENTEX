@@ -262,14 +262,13 @@
         `; 
         overlay.appendChild(form);
         document.body.appendChild(overlay);
-        const reviewID = review;
+        let reviewID = review;
         const submitBtn = form.querySelector('.submit-btn');
         const cancelBtn = form.querySelector('.cancel-btn');
 
         submitBtn.addEventListener('click', async () => {
             const selectedFeedback = form.querySelector('input[name="feedback-reason"]:checked')?.value;
             const msg = form.querySelector('textarea').value;
-            const reviewID = document.querySelector('.jftiEf .data-review-id')
             const originalReview = "real"
             console.log(selectedFeedback);
             console.log(msg);
