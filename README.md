@@ -1,6 +1,6 @@
 # 🌟 Google Fake Review Analyser - Chrome Extension
 
-The **Google Fake Review Analyser** is a powerful Chrome extension designed to help users identify fake, suspicious, or unreliable reviews on Google. 🚀 Leveraging advanced NLP models and a user-friendly interface, the extension evaluates the credibility of reviews using multiple parameters like grammar, content length, and sentiment analysis, providing users with actionable insights to make informed decisions.
+The **Google Fake Review Analyser** is a powerful Chrome extension designed to help users identify fake, suspicious, or unreliable reviews on Google. 🚀 Leveraging advanced NLP models and a user-friendly interface, the extension evaluates the credibility of reviews using multiple parameters like grammar, content analysis, content length, and sentiment analysis, providing users with actionable insights to make informed decisions.
 
 ---
 
@@ -13,8 +13,10 @@ The **Google Fake Review Analyser** is a powerful Chrome extension designed to h
 ### 2. **Detailed Review Scoring** 📊
 - Each review is evaluated across key metrics:
   - **Grammar**: 📝 Checks for grammatical accuracy.
+  - **Content Analysis**: 📖 Scores the relevance and quality of the review's content based on its message and context.
   - **Content Length**: 🔍 Evaluates if the review is overly brief or suspiciously detailed.
   - **Sentiment Analysis**: 😊/😡 Determines the tone and polarity of the review.
+- **Image Detection**: 🖼️ Identifies reviews with attached images and awards a **10% bonus** to their credibility score.
 - Reviews are categorized as **Real**, **Suspicious**, or **Fake** based on the aggregated scores.
 
 ### 3. **Feedback Mechanism** 🗣️
@@ -37,7 +39,8 @@ The **Google Fake Review Analyser** is a powerful Chrome extension designed to h
 - **FastAPI**: ⚡ Backend framework for serving the analysis.
 
 ### Machine Learning
-- **NLP Models**: Utilized for grammar checking, sentiment analysis, and content evaluation.
+- **NLP Models**: Utilized for grammar checking, sentiment analysis, cosinne-similarity and TF-IDF.
+- **AI MODEL** : Used LLAMA 3.2 90B LLM to check content analysis 
 
 ### Infrastructure
 - **Docker**: 🐳 Containerized deployment for consistent performance across environments.
@@ -51,7 +54,8 @@ The **Google Fake Review Analyser** is a powerful Chrome extension designed to h
 2. Visit any Google review page.
 3. Activate the extension to analyze the reviews in real time.
 4. View the scores and categorizations for each review directly in the interface.
-5. Optionally, submit feedback to improve the extension.
+5. Reviews with images automatically receive a **10% bonus** in credibility scoring.
+6. Optionally, submit feedback to improve the extension.
 
 ---
 
