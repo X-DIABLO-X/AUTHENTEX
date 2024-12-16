@@ -230,7 +230,7 @@
             <h3>Review Analysis Feedback</h3>
             
             <div class="feedback-options ">
-                <p>Why do you think this analysis is incorrect?</p>
+                <p>What are your thoughts on this review?</p>
                 <label>
                     <input type="radio" name="feedback-reason" value="wrong-classification">
                     Wrong classification
@@ -245,7 +245,7 @@
                 </label>
                 <label>
                     <input type="radio" name="feedback-reason" value="other">
-                    Other reason
+                    Review seems Real to me!
                 </label>
             </div>
 
