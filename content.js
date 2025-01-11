@@ -3,9 +3,6 @@
 
     let processedReviews = new Set();
     let isAnalyzing = false;
-
-    // New API functions for review scoring and similarity
-    //last code here remove the below if not works
     async function fetchReviewScore(reviewText, placeType) {
         const url = `https://nlp-parameter-907415986378.asia-south2.run.app/analyze_review?review_text="${reviewText}"&place_type="${placeType}"`;
         console.log(url);
@@ -14,21 +11,20 @@
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            const data = await response.json(); // This is the JSON object
+            const data = await response.json();
             console.log('Data received:', data);
-            return data; // Return the JSON object to the caller
+            return data;
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
-            throw error; // Optionally rethrow the error for the caller to handle
+            throw error;
         }
     }
 
     async function fetchReviewSimilarity(profileUrl, numberOfReviews = 10) {
-        const SCRAPING_API_URL = "https://scraping-5am5.onrender.com/scrape-reviews"; // API for scraping
-        const ML_URL = "https://ml-integration.onrender.com/calculate_similarity"; // ML cosine similarity endpoint
+        const SCRAPING_API_URL = "https://scraping-5am5.onrender.com/scrape-reviews";
+        const ML_URL = "https://ml-integration.onrender.com/calculate_similarity";
     
         try {
-            // Step 1: Scrape the reviews from the profile using GET
             const scrapeResponse = await fetch(`${SCRAPING_API_URL}?url=${encodeURIComponent(profileUrl)}&max_reviews=${numberOfReviews}`, {
                 method: "GET",
                 headers: {
@@ -36,12 +32,10 @@
                 },
             });
     
-            // Check if scraping was successful
             if (!scrapeResponse.ok) {
                 throw new Error(`Scraping Failed: ${scrapeResponse.status} ${scrapeResponse.statusText}`);
             }
     
-            // Extract scraped reviews
             const scrapeData = await scrapeResponse.json();
             if (!scrapeData.reviews || scrapeData.reviews.length === 0) {
                 throw new Error("No reviews found in the scraped data.");
@@ -49,12 +43,10 @@
     
             console.log("Scraped Reviews:", scrapeData.reviews);
     
-            // Step 2: Prepare reviews for the ML similarity API
             const reviewsPayload = {
-                comments: scrapeData.reviews, // Use the reviews from the scraped data
+                comments: scrapeData.reviews,
             };
     
-            // Step 3: Send reviews to ML cosine similarity endpoint
             const similarityResponse = await fetch(ML_URL, {
                 method: "POST",
                 headers: {
@@ -63,21 +55,18 @@
                 body: JSON.stringify(reviewsPayload),
             });
     
-            // Check if similarity calculation was successful
             if (!similarityResponse.ok) {
                 throw new Error(`ML Similarity Failed: ${similarityResponse.status} ${similarityResponse.statusText}`);
             }
     
-            // Extract the similarity result
             const similarityData = await similarityResponse.json();
     
             console.log("Cosine Similarity Result:", similarityData);
     
-            // Return the similarity score (assuming it's part of the response)
             return similarityData.score || null;
         } catch (error) {
             console.error("Error occurred:", error.message);
-            throw error; // Re-throw the error for the caller to handle
+            throw error;
         }
     }
     
@@ -265,7 +254,8 @@
         let reviewID = review.getAttribute('data-review-id');
         const submitBtn = form.querySelector('.submit-btn');
         const cancelBtn = form.querySelector('.cancel-btn');
-
+        cancelBtn.addEventListener('click', () => overlay.remove());   
+        // content.js
         submitBtn.addEventListener('click', async () => {
             const selectedFeedback = form.querySelector('input[name="feedback-reason"]:checked')?.value;
             const msg = form.querySelector('textarea').value;
@@ -277,29 +267,26 @@
             }
         
             try {
-                await new Promise((resolve, reject) => {
-                    chrome.runtime.sendMessage({
-                        type: 'fetch',
-                        url: 'https://database-4pzy.onrender.com/submit_feedback',
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: {
-                            "ID": reviewID,
-                            "FEEDBACK": selectedFeedback,
-                            "MESSAGE": msg,
-                            "REVIEW": originalReview
-                        }
-                    }, (response) => {
-                        if (response.success) {
-                            resolve(response);
-                        } else {
-                            reject(new Error(response.error));
-                        }
-                    });
+                const response = await fetch('https://iwyatfovdfzlpmoqobqp.supabase.co/rest/v1/feedback', {
+                    method: 'POST',
+                    headers: {
+                        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml3eWF0Zm92ZGZ6bHBtb3FvYnFwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzYzMTU3ODYsImV4cCI6MjA1MTg5MTc4Nn0.0EB_UGTmYVlst5thsl8vhw4MlaFz6sy-iPpZ-MvAFwA',
+                        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml3eWF0Zm92ZGZ6bHBtb3FvYnFwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzYzMTU3ODYsImV4cCI6MjA1MTg5MTc4Nn0.0EB_UGTmYVlst5thsl8vhw4MlaFz6sy-iPpZ-MvAFwA',
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({
+                        review_id: reviewID,
+                        feedback: selectedFeedback,
+                        message: msg,
+                        original_review: originalReview
+                    })
                 });
-                
+        
+                if (!response.ok) {
+                    throw new Error('Failed to submit feedback');
+                }
+        
                 overlay.remove();
             } catch (error) {
                 console.error('Failed to submit feedback:', error);
@@ -363,14 +350,11 @@
         if (processedReviews.has(reviewElement)) return;
         
         try {
-            // Extract review text (adjust selector as needed)
             const reviewText = reviewElement.textContent;
             console.log("processing reviews!");
-            // Fetch review score from API
             let scoreData = await fetchReviewScore(reviewText, title);
             //let similar = await fetchReviewSimilarity()
             console.log("review processed!");
-            // Determine classification based on score
             console.log(pic);
             const result = determineClassification(scoreData, pic);
             console.log("classification determined!");
@@ -425,17 +409,15 @@
             stats[type]++;
             stats.total++;
             chrome.storage.local.set({ reviewStats: stats }, function() {
-                // Send message to popup to update counts
                 chrome.runtime.sendMessage({
                     action: "updateCounts",
                     stats: stats
                 });
             });
         });
-    }
+    }   
 
     async function findAndProcessReviews() {
-        // Only process if analysis has started
         if (!isAnalyzing) return;
 
         try {
@@ -449,9 +431,9 @@
                 const reviewElement = reviewEl[i];
                 let pic = false;
                 //buttons[i].click();
-                // buttons[i].addEventListener('click', async function(){
-                //     await processReview(review, reviewEl[i], title, pic);
-                // });
+                buttons[i].addEventListener('click', async function(){
+                    await processReview(review, reviewElement, title, pic);
+                });
                 const is_image = reviewEl[i].querySelector('.jftiEf .KtCyie'); 
                 if (is_image) {
                     console.log("Image found");
@@ -464,7 +446,7 @@
                 if (!review.hasAttribute('data-processed') && !reviewElement.hasAttribute('data-processed')) {
                     review.setAttribute('data-processed', 'true');
                     reviewElement.setAttribute('data-processed', 'true');
-                    await processReview(review, reviewElement, title, pic); // Process both reviews together
+                    await processReview(review, reviewElement, title, pic);
                 }
             }
         } catch (error) {

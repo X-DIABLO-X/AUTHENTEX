@@ -20,7 +20,9 @@
         "https://database-4pzy.onrender.com/*",
         "https://nlp-parameter-907415986378.asia-south2.run.app/*",
         "https://scraping-5am5.onrender.com/*",
-        "https://ml-integration.onrender.com/*"
+        "https://ml-integration.onrender.com/*",
+        "https://iwyatfovdfzlpmoqobqp.supabase.co/*"
+
     ],
     "content_security_policy": {
         "extension_pages": "script-src 'self'; object-src 'self';",
